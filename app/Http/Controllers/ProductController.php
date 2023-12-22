@@ -33,11 +33,11 @@ class ProductController extends Controller
             'price' => 'required|integer',
             'stock' => 'required|integer',
             'category' => 'required|in:food,drink,snack',
-            //'image' => 'required|image|mimes:png,jpg,jpeg'
+            'image' => 'required|image|mimes:png,jpg,jpeg'
         ]);
 
-        // $filename = time() . '.' . $request->image->extension();
-        // $request->image->storeAs('public/products', $filename);
+        $filename = time() . '.' . $request->image->extension();
+        $request->image->storeAs('public/products', $filename);
         $data = $request->all();
 
         $product = new Product;
@@ -45,7 +45,7 @@ class ProductController extends Controller
         $product->price = (int) $request->price;
         $product->stock = (int) $request->stock;
         $product->category = $request->category;
-        //$product->image = $filename;
+        $product->image = $filename;
         $product->save();
 
         return redirect()->route('product.index')->with('success', 'Product successfully created');
