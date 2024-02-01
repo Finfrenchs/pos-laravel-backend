@@ -27,7 +27,8 @@
             <div class="section-body">
                 <h2 class="section-title">Product</h2>
                 <div class="card">
-                    <form action="{{ route('product.update', $product) }}" method="POST">
+                    {{-- Ditambahkan atribut enctype="multipart/form-data" pada tag form untuk  --}}
+                    <form action="{{ route('product.update', $product) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="card-header">
@@ -94,6 +95,25 @@
 
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Current Image</label>
+                                <img src="{{ asset('storage/products/' . $product->image) }}" alt="Product Image"
+                                    class="img-thumbnail mb-3" style="max-width: 200px;">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">New Image</label>
+                                <input type="file"
+                                    class="form-control @error('image') is-invalid @enderror"
+                                    name="image">
+                                @error('image')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
                         </div>
                         <div class="card-footer text-right">
                             <button class="btn btn-primary">Submit</button>

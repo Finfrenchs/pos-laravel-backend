@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -59,9 +61,41 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data = $request->all();
+
+        $request->validate([
+            'name' => 'required|min:3|unique:products,name,' . $id,
+            'price' => 'required|integer',
+            'stock' => 'required|integer',
+            'category' => 'required|in:food,drink,snack',
+            'image' => 'image|mimes:png,jpg,jpeg'
+        ]);
+
         $product = Product::findOrFail($id);
-        $product->update($data);
+
+        //update detail product
+        $product->update([
+            'name' => $request->name,
+            'price' => (int) $request->price,
+            'stock' => (int) $request->stock,
+            'category' => $request->category,
+        ]);
+
+        //update product image if add new image
+        if ($request->hasFile('image')) {
+            $filename = time() . '.' . $request->image->extension();
+            $request->image->storeAs('public/products/', $filename);
+
+            //delete old image
+            if ($product->image) {
+                Storage::delete('public/products/' . $product->image);
+            }
+            $product->update(['image' => $filename]);
+        }
+
+        ///THIS STATEMENT NO WITH CHANGE IMAGE
+        // $data = $request->all();
+        // $product = Product::findOrFail($id);
+        // $product->update($data);
         return redirect()->route('product.index')->with('success', 'Product successfully updated');
     }
 
