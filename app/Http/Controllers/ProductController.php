@@ -67,8 +67,27 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
+
+        // Check if there are any order items associated with this product
+        // $orderItemsCount = DB::table('order_items')->where('product_id', $id)->count();
+
+        // if ($orderItemsCount > 0) {
+        // return redirect()->route('product.index')->with('error', 'Cannot delete product. There are associated order items.');
+        // }
+
+        // Hapus semua order items terkait dengan produk
+        DB::table('order_items')->where('product_id', $id)->delete();
+
+        // No associated order items, proceed with product deletion
+        // delete product
         $product = Product::findOrFail($id);
         $product->delete();
         return redirect()->route('product.index')->with('success', 'Product successfully deleted');
+
+        // Tandai produk sebagai tidak tersedia
+        // $product = Product::findOrFail($id);
+        // $product->update(['available' => false]);
+
+        // return redirect()->route('product.index')->with('success', 'Product marked as unavailable');
     }
 }

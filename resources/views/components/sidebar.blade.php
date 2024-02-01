@@ -1,27 +1,26 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="index.html">POS LWK Dashboard</a>
+            <a href="{{ route('app.dashboard-pos') }}">POS Sruput Glek</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="index.html">PLD</a>
+            <a href="{{ route('app.dashboard-pos') }}">PSG</a>
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
             <li class="nav-item dropdown">
                 <a href="#"
-                    class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Dashboard</span></a>
+                    class="nav-link has-dropdown"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
                 <ul class="dropdown-menu">
-                    <li class='{{ Request::is('dashboard-general-dashboard') ? 'active' : '' }}'>
-                        <a class="nav-link"
-                            href="{{ url('dashboard-general-dashboard') }}">General Dashboard</a>
+                    <li class="{{ request()->routeIs('app.dashboard-pos') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('app.dashboard-pos') }}">General Dashboard</a>
                     </li>
                 </ul>
             </li>
 
             <li class="nav-item dropdown">
                 <a href="#"
-                    class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Users</span></a>
+                    class="nav-link has-dropdown"><i class="fa-solid fa-users"></i><span>Users</span></a>
                 <ul class="dropdown-menu">
                     <li >
                         <a class="nav-link"
@@ -32,11 +31,33 @@
 
             <li class="nav-item dropdown">
                 <a href="#"
-                    class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Products</span></a>
+                    class="nav-link has-dropdown"><i class="fa-solid fa-box"></i><span>Products</span></a>
                 <ul class="dropdown-menu">
                     <li >
                         <a class="nav-link"
                             href="{{ route('product.index') }}">Product List</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a href="#"
+                    class="nav-link has-dropdown"><i class="fa-solid fa-cart-flatbed"></i><span>Orders</span></a>
+                <ul class="dropdown-menu">
+                    <li >
+                        <a class="nav-link"
+                            href="{{ route('order.index') }}">Order List</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a href="#"
+                    class="nav-link has-dropdown"><i class="fa-solid fa-chart-line"></i><span>Sales Report</span></a>
+                <ul class="dropdown-menu">
+                    <li >
+                        {{-- <a class="nav-link"
+                            href="{{ route('order.index') }}">Order List</a> --}}
                     </li>
                 </ul>
             </li>
