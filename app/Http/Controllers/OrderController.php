@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -26,15 +27,4 @@ class OrderController extends Controller
 
         return view('pages.orders.view', compact('order', 'orderItems'));
     }
-
-    // public function getSalesReport(Request $request)
-    // {
-    //     $startDate = $request->input('start_date');
-    //     $endDate = $request->input('end_date');
-
-    //     $salesReport = Order::whereBetween('transaction_time', [$startDate, $endDate])
-    //         ->get();
-
-    //     return response()->json(['sales_report' => $salesReport]);
-    // }
 }

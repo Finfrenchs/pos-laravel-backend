@@ -79,7 +79,12 @@
                                                 <td>
                                                     {{ $user->email }}
                                                 </td>
-                                                <td>{{ $user->roles }}
+                                                <td>
+                                                    @if ($user->roles == 'user')
+                                                    cashier
+                                                    @else
+                                                    {{ $user->roles }}
+                                                    @endif
                                                 </td>
                                                 <td>
                                                     {{ $user->phone }}

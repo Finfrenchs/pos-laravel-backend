@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SalesReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('user', UserController::class);
     Route::resource('product', ProductController::class);
     Route::resource('order', OrderController::class);
+
+    Route::get('/report', [SalesReportController::class, 'index'])->name('report.index');
+    Route::get('/report/filter', [SalesReportController::class, 'filter'])->name('report.filter');
+    Route::get('/report/download', [SalesReportController::class, 'download'])->name('report.download');
+    Route::get('/report/sales-report', [SalesReportController::class, 'salesReport'])->name('report.sales.report.data');
 });
 
 // Route::get('/register', function () {

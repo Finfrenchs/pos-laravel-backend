@@ -52,18 +52,25 @@
                                 <div class="table-responsive">
                                     <table class="table-striped table">
                                         <tr>
+                                            <th>Order Id</th>
                                             <th>Transaction Time</th>
+                                            <th>Payment Method</th>
                                             <th>Total Price</th>
                                             <th>Total Item</th>
                                             <th>Cashier</th>
                                         </tr>
                                         @foreach ($orders as $order)
                                             <tr>
-
-                                                <td><a href="{{route('order.show', $order->id)}}">{{ $order->transaction_time }}</a>
+                                                <td>
+                                                    {{ $order->id }}
+                                                </td>
+                                                <td><a href="{{route('order.show', $order->id)}}">{{ \Carbon\Carbon::parse($order->transaction_time)->format('d F Y H:i:s') }}</a>
                                                 </td>
                                                 <td>
-                                                    {{ $order->total_price }}
+                                                    {{ $order->payment_method }}
+                                                </td>
+                                                <td>
+                                                    {{ formatCurrency($order->total_price) }}
                                                 </td>
                                                 <td>{{ $order->total_item }}
                                                 </td>

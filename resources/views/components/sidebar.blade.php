@@ -56,10 +56,22 @@
                     class="nav-link has-dropdown"><i class="fa-solid fa-chart-line"></i><span>Sales Report</span></a>
                 <ul class="dropdown-menu">
                     <li >
-                        {{-- <a class="nav-link"
-                            href="{{ route('order.index') }}">Order List</a> --}}
+                        <a class="nav-link"
+                            href="{{ route('report.index') }}">Sales Range Report Data</a>
+                    </li>
+                    <li >
+                        <a class="nav-link"
+                            href="{{ route('report.sales.report.data') }}">Sales Report Data</a>
                     </li>
                 </ul>
             </li>
+
+            {{-- <li class="menu-header">Report</li>
+
+            <li class={{ Request::is('report*') ? 'active' : '' }}>
+                <a class="nav-link" href="{{ route('report.index') }}">
+                <i class="fas fa-book"></i> <span>Report</span></a>
+            </li> --}}
+
     </aside>
 </div>

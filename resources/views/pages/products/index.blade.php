@@ -67,6 +67,8 @@
                                             <th>Name</th>
                                             <th>Category</th>
                                             <th>Stock</th>
+                                            <th>Price</th>
+                                            <th>Best Seller</th>
                                             <th>Photo Product</th>
                                             <th>Created At</th>
                                             <th>Action</th>
@@ -80,6 +82,16 @@
                                                     {{ $product->category }}
                                                 </td>
                                                 <td>{{ $product->stock }}
+                                                </td>
+                                                <td>
+                                                    @currency($product->price)
+                                                </td>
+                                                <td>
+                                                    @if ($product->is_best_seller == 1)
+                                                        Yes
+                                                    @else
+                                                        No
+                                                    @endif
                                                 </td>
                                                 <td>
                                                     @if ($product->image)

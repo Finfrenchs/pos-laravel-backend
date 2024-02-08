@@ -36,11 +36,30 @@ class DashboardController extends Controller
         ];
     }
 
-    public function showDashboard()
+    public function showDashboard(Request $request)
     {
         $totals = $this->getTotals();
 
+        // Definisikan array yang berisi nama-nama hari
+        $daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+        // Inisialisasi data penjualan harian, bulanan, dan tahunan
+        $dailySales = Order::selectRaw('DATE(transaction_time) as date, SUM(total_price) as total_sales')
+            ->groupBy('date')
+            ->paginate(10);
+
+        $monthlySales = Order::selectRaw('DATE_FORMAT(transaction_time, "%Y-%m") as month, SUM(total_price) as total_sales')
+            ->groupBy('month')
+            ->paginate(10);
+
+        $yearlySales = Order::selectRaw('YEAR(transaction_time) as year, SUM(total_price) as total_sales')
+            ->groupBy('year')
+            ->paginate(10);
+
+        // Periksa apakah parameter 'period' ada dalam request
+        //$selectedPeriod = $request->has('period') ? $request->period : 'day';
+
         // Return the view with the correct view name
-        return view('pages.app.dashboard-pos', compact('totals'));
+        return view('pages.app.dashboard-pos', compact('totals', 'dailySales', 'monthlySales', 'yearlySales', 'daysOfWeek'));
     }
 }

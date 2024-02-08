@@ -47,7 +47,6 @@ $(".sparkline-bar").sparkline(sparkline_values_bar, {
   barColor: 'rgb(87,75,144)'
 });
 
-
 var ctx = document.getElementById("myChart").getContext('2d');
 var myChart = new Chart(ctx, {
   type: 'line',
